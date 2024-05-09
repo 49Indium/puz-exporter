@@ -8,26 +8,37 @@ def _get_clue_numbers(puzzle: puz.Puzzle) -> dict[int, int]:
             clue_numbers[clue["cell"]] = clue["num"]
     return clue_numbers
 
-def grid_to_latex(self: puz.Puzzle):
-    result = f"\\begin{{Puzzle}}{{{self.width}}}{{{self.height}}}\n"
+def puzzle_grid_to_latex(puzzle: puz.Puzzle) -> str:
+    # Return a string of the crossword in LaTeX form (using the cwpuzzle LaTeX library)
+    result = f"\\begin{{Puzzle}}{{{puzzle.width}}}{{{puzzle.height}}}\n"
 
-    clue_numbers = _get_clue_numbers(self)
-    for row in range(self.height):
-        for column in range(self.width):
-            cell = row*self.width + column
+    clue_numbers = _get_clue_numbers(puzzle)
+    for row in range(puzzle.height):
+        for column in range(puzzle.width):
+            cell = row*puzzle.width + column
             result += "|"
 
             if cell in clue_numbers:
                 result += f"[{clue_numbers[cell]}]"
             
-            if self.fill[cell] == self.blacksquare():
+            if puzzle.fill[cell] == puzzle.blacksquare():
                 result += "* "
             else:
-                result += self.solution[cell] + " "
+                result += puzzle.solution[cell] + " "
 
         result += "|.\n"
     result += "\\end{Puzzle}"
     return result
 
-# Update the puzzle object
-puz.Puzzle.grid_to_latex = grid_to_latex
+def puzzle_clueset_to_latex(clueset: list[dict[str, int]], clues: list[str], clueset_name: str) -> str:
+    # Provides the LaTeX form of a clueset (using the cwpuzzle LaTeX library)
+    result = f"\\begin{{PuzzleClues}}{{\\textbf{{{clueset_name}}}\\\\\n}}"
+    clue_strings: list[str] = []
+    for clue in clueset:
+        clue_strings.append(f"\\Clue{{{clue['num']}}}{{}}{{{clues[clue['clue_index']]}}}")
+    result += "\\\\\n".join(clue_strings) + "\n\\end{PuzzleClues}"
+    return result
+
+def puzzle_clues_to_latex(puzzle: puz.Puzzle) -> str:
+    # Provides the LaTeX form of the clues of a puzzle (using the cwpuzzle LaTeX library)
+    return puzzle_clueset_to_latex(clueset=puzzle.clue_numbering().across, clues=puzzle.clues, clueset_name="Across") + "\n\n" + puzzle_clueset_to_latex(clueset=puzzle.clue_numbering().across, clues=puzzle.clues, clueset_name="Across")
