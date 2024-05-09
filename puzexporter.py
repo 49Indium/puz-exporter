@@ -55,7 +55,7 @@ def _collate_html_rows(rows: list[str]) -> str:
 
 def _collate_html_cells(cells: list[str]) -> str:
     """Turn HTML cells into a row"""
-    return " "*4 + "<tr>\n" + "\n".join(cells) + "\n</tr>"
+    return " "*4 + "<tr>\n" + "\n".join(cells) + "\n" + " "*4 + "</tr>"
 
 def _create_html_cell(is_black: bool, number: Optional[int], intended_letter: str) -> str:
     """Create a cell for a HTML crossword"""
