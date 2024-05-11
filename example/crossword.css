@@ -1,0 +1,44 @@
+.crossword {
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 1px solid #CFCFCF;
+}
+
+.crossword td {
+  border: 1px solid #CFCFCF;
+  position: relative;
+  height: 2rem;
+  width: 2rem;
+}
+
+.crossword sup {
+  position: absolute;
+  z-index: 2;
+  top: 0.1rem;
+  left: 0.1rem;
+}
+
+.crossword input {
+  width: 100%;
+  height: 100%;
+  background: #F9F9F9;
+  color: #000000;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.5rem;
+
+  /* This is because chrome will offset these by 1 by default */
+  top: 0;
+  left: 0;
+}
+
+.crossword input:focus {
+  border: 0.1rem solid #FF1B1C;
+  outline: none;
+}
+
+.blacksquare {
+  background: #B1B1B1;
+}

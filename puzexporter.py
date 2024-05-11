@@ -28,6 +28,7 @@ def format_puzzle_grid(puzzle: Puzzle, collate_rows: Callable[[list[str]], str],
         rows.append(collate_cells(cells))
     return collate_rows(rows)
 
+
 def _collate_latex_cells(cells: list[str]) -> str:
     """Turn LaTeX cells into a row."""
     return " ".join(cells) + " |."
@@ -48,6 +49,7 @@ def puzzle_grid_to_latex(puzzle: Puzzle) -> str:
     result = f"\\begin{{Puzzle}}{{{puzzle.width}}}{{{puzzle.height}}}\n"
     result += format_puzzle_grid(puzzle, "\n".join, _collate_latex_cells, _create_latex_cell)
     return result + "\n\\end{Puzzle}"
+
 
 def _collate_html_rows(rows: list[str]) -> str:
     """Turn HTML rows into a table"""
@@ -98,6 +100,7 @@ def puzzle_clues_to_latex(puzzle: Puzzle) -> str:
 def puzzle_to_latex(puzzle: Puzzle) -> str:
     """Return the LaTeX equivalent of an entire puzzle (using the cwpuzzle LaTeX library)"""
     return puzzle_grid_to_latex(puzzle) + "\n\n" + puzzle_clues_to_latex(puzzle)
+
 
 def puzzle_clueset_to_html(clueset: list[dict[str, int]], clues: list[str], clueset_name: str) -> str:
     """Provides the HTML form of a clueset as an ordered list"""
