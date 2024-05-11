@@ -67,9 +67,19 @@ def _create_html_cell(is_black: bool, number: Optional[int], intended_letter: st
         result += f"<sup>{number}</sup>"
     return result + "<input type=\"text\" minlength=\"1\" maxlength=\"1\"></td>"
 
-def puzzle_grid_to_html(puzzle: Puzzle) -> str:
+def _create_html_solution_cell(is_black: bool, number: Optional[int], intended_letter: str) -> str:
+    """Create a cell with letter filled in for a HTML crossword"""
+    if is_black:
+        return " "*8 + "<td class=\"blacksquare\"></td>"
+    
+    result = " "*8 + "<td>"
+    if number is not None:
+        result += f"<sup>{number}</sup>"
+    return result + f"<input type=\"text\" minlength=\"1\" maxlength=\"1\" value=\"{intended_letter}\" readonly></td>"
+
+def puzzle_grid_to_html(puzzle: Puzzle, solved: bool = False) -> str:
     """Represent the grid of the crossword as a HTML table"""
-    return format_puzzle_grid(puzzle, _collate_html_rows, _collate_html_cells, _create_html_cell)
+    return format_puzzle_grid(puzzle, _collate_html_rows, _collate_html_cells, _create_html_solution_cell if solved else _create_html_cell)
     
 
 def puzzle_clueset_to_latex(clueset: list[dict[str, int]], clues: list[str], clueset_name: str) -> str:
