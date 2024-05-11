@@ -16,7 +16,7 @@ def format_puzzle_grid(puzzle: Puzzle, collate_rows: Callable[[list[str]], str],
     puzzle: the puzzle to format
     collate_rows: a function that turns a list of rows into a full formatted puzzle
     collate_cells: a function that turns a list of cells into a formatted row
-    create_cell: a function that creates a cell given whether it is black, it's clue number (if it has one), and its intended letter in the solution
+    create_cell: a function that creates a cell given whether it is solid (i.e. not able to be filled with a letter), it's clue number (if it has one), and its intended letter in the solution
     """
     clue_numbers = _get_clue_numbers(puzzle)
     rows = []
@@ -33,12 +33,12 @@ def _collate_latex_cells(cells: list[str]) -> str:
     """Turn LaTeX cells into a row."""
     return " ".join(cells) + " |."
 
-def _create_latex_cell(is_black: bool, number: Optional[int], intended_letter: str) -> str:
+def _create_latex_cell(is_solid: bool, number: Optional[int], intended_letter: str) -> str:
     """Create a cell for a LaTeX crossword"""
     result = "|"
     if number is not None:
         result += f"[{number}]"
-    if is_black:
+    if is_solid:
         result += "*"
     else:
         result += intended_letter
@@ -59,20 +59,20 @@ def _collate_html_cells(cells: list[str]) -> str:
     """Turn HTML cells into a row"""
     return " "*4 + "<tr>\n" + "\n".join(cells) + "\n" + " "*4 + "</tr>"
 
-def _create_html_cell(is_black: bool, number: Optional[int], intended_letter: str) -> str:
+def _create_html_cell(is_solid: bool, number: Optional[int], intended_letter: str) -> str:
     """Create a cell for a HTML crossword"""
-    if is_black:
-        return " "*8 + "<td class=\"blacksquare\"></td>"
+    if is_solid:
+        return " "*8 + "<td class=\"solidsquare\"></td>"
     
     result = " "*8 + "<td>"
     if number is not None:
         result += f"<sup>{number}</sup>"
     return result + "<input type=\"text\" minlength=\"1\" maxlength=\"1\"></td>"
 
-def _create_html_solution_cell(is_black: bool, number: Optional[int], intended_letter: str) -> str:
+def _create_html_solution_cell(is_solid: bool, number: Optional[int], intended_letter: str) -> str:
     """Create a cell with letter filled in for a HTML crossword"""
-    if is_black:
-        return " "*8 + "<td class=\"blacksquare\"></td>"
+    if is_solid:
+        return " "*8 + "<td class=\"solidsquare\"></td>"
     
     result = " "*8 + "<td>"
     if number is not None:
