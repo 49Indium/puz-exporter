@@ -1,5 +1,9 @@
 # puz-exporter
-A python library to export crossword .puz files to TeX and HTML formats. Uses the [puzpy library](https://github.com/alexdej/puzpy) to read crosswords in the .puz format. When exporting to $\TeX$, the [cwpuzzle](http://www.gerd-neugebauer.de/software/TeX/cwpuzzle/en/) is used. When exporting to HTML, a table layout is generated. See the images below, [this basic HTML version from the examples folder](https://isaacbeh.net/projects/crossword-example/crossword.html), [this more polished HTML version](https://isaacbeh.net/blog/cs-crossword.html) or [this $\TeX$ PDF](https://isaacbeh.net/blog/cs-crossword/cs-crossword.pdf).
+A python library to export crossword .puz files to TeX and HTML formats. Uses the [puzpy library](https://github.com/alexdej/puzpy) to read crosswords in the .puz format. When exporting to $\TeX$, the [cwpuzzle](http://www.gerd-neugebauer.de/software/TeX/cwpuzzle/en/) is used. When exporting to HTML, a table layout is generated. See the images below, [this basic HTML version from the examples folder](https://isaacbeh.net/projects/crossword-example/crossword.html), [this more polished HTML version](https://isaacbeh.net/blog/cs-crossword.html) or [this $`\TeX`$ PDF](https://isaacbeh.net/blog/cs-crossword/cs-crossword.pdf).
+
+Basic HTML | TeX PDF
+--- | ---
+![An example of a basic HTML layout](https://github.com/49Indium/puz-exporter/assets/20060156/c16d9f1e-ab1d-4af2-9945-7a731488516e) | ![An example of the TeX PDF](https://github.com/49Indium/puz-exporter/assets/20060156/80734242-1afd-4066-9613-5c006c73e85d)
 
 # Basic Usage
 Load a puzzle using the puzpy library:
